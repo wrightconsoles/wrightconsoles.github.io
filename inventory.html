@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wright Consoles social media hub and customer testimonials. Follow our restoration journeys, micro-soldering logs, and hardware repair clips." />
+  <title>Social Circle | Wright Consoles</title>
+  <style>
+    :root {
+      --bg: #070b12;
+      --bg-elevated: #0d1420;
+      --bg-panel: rgba(15, 23, 36, 0.88);
+      --slate: #152031;
+      --slate-soft: #1d2a3d;
+      --text: #f4f7fb;
+      --muted: #aab6c7;
+      --muted-strong: #c5d0df;
+      --blue: #00a8ff;
+      --blue-bright: #38c7ff;
+      --amber: #ffb020;
+      --amber-bright: #ffd166;
+      --line: rgba(148, 163, 184, 0.22);
+      --shadow-blue: rgba(0, 168, 255, 0.28);
+      --shadow-amber: rgba(255, 176, 32, 0.24);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(0, 168, 255, 0.19), transparent 30%),
+        radial-gradient(circle at 82% 8%, rgba(255, 176, 32, 0.15), transparent 28%),
+        linear-gradient(135deg, #05070c 0%, #09111d 45%, #0b1019 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.78), rgba(0,0,0,0.15));
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      width: min(100% - 32px, var(--max-width));
+      margin: 0 auto;
+    }
+
+    /* Header Styles */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid var(--line);
+     background-image: url("logo.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 64px;
+      padding: 0 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(56, 199, 255, 0.42);
+      border-radius: 12px;
+      color: var(--blue-bright);
+      background: linear-gradient(145deg, rgba(0, 168, 255, 0.18), rgba(255, 176, 32, 0.08));
+      box-shadow: 0 0 30px rgba(0, 168, 255, 0.16);
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    /* Hamburger Menu Button */
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      margin-right: -8px;
+    }
+
+    .hamburger-btn span {
+      width: 24px;
+      height: 2.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 300ms ease;
+      display: block;
+    }
+
+    .hamburger-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .hamburger-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Navigation Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--muted-strong);
+      font-size: 0.94rem;
+      font-weight: 650;
+      transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+      border-color: rgba(56, 199, 255, 0.36);
+      background: rgba(0, 168, 255, 0.09);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      position: absolute;
+      top: 64px;
+      right: 0;
+      left: 0;
+      background: rgba(7, 11, 18, 0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 300ms ease;
+      z-index: 20;
+    }
+
+    .dropdown-menu.active {
+      max-height: 300px;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 16px 24px;
+      color: var(--muted-strong);
+      font-size: 0.95rem;
+      font-weight: 650;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      transition: background 180ms ease, color 180ms ease;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus-visible {
+      background: rgba(0, 168, 255, 0.08);
+      color: var(--text);
+      outline: none;
+    }
+
+    main {
+      flex: 1;
+      padding: 84px 0 72px;
+    }
+
+    .hero-section {
+      margin-bottom: 64px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      font-weight: 900;
+      letter-spacing: -0.075em;
+      text-wrap: balance;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      max-width: 680px;
+    }
+
+    /* Section Title */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 32px;
+      margin-top: 48px;
+    }
+
+    /* Inventory Grid */
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+
+    .inventory-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(15, 23, 36, 0.92), rgba(10, 16, 27, 0.82));
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+      overflow: hidden;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .inventory-card:hover {
+      border-color: rgba(56, 199, 255, 0.28);
+      box-shadow: 0 28px 90px rgba(0, 168, 255, 0.18);
+      transform: translateY(-4px);
+    }
+
+    .inventory-image {
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, rgba(0, 168, 255, 0.08), rgba(255, 176, 32, 0.04));
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    .inventory-content {
+      padding: 24px;
+    }
+
+    .inventory-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .inventory-price {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--amber-bright);
+      margin-bottom: 12px;
+    }
+
+    .inventory-description {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Social Media Section */
+    .social-section {
+      margin-bottom: 64px;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .social-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(15, 23, 36, 0.92), rgba(10, 16, 27, 0.82));
+      text-align: center;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+      cursor: pointer;
+    }
+
+    .social-card:hover {
+      border-color: rgba(56, 199, 255, 0.28);
+      box-shadow: 0 28px 90px rgba(0, 168, 255, 0.18);
+      transform: translateY(-4px);
+    }
+
+    .social-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .social-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--blue-bright);
+      margin-bottom: 8px;
+    }
+
+    .social-tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      margin-bottom: 48px;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(15, 23, 36, 0.92), rgba(10, 16, 27, 0.82));
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+    }
+
+    .testimonial-stars {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      color: var(--muted-strong);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .testimonial-author {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 32px 0 40px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: 0.92rem;
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav {
+        min-height: 56px;
+        padding: 0 12px;
+      }
+
+      .brand {
+        font-size: 1rem;
+        gap: 8px;
+      }
+
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+      }
+
+      .hamburger-btn {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      main {
+        padding-top: 54px;
+      }
+
+      .inventory-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 18px;
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dropdown-menu {
+        top: 56px;
+      }
+
+      .dropdown-menu.active {
+        max-height: 280px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-shell {
+        width: min(100% - 24px, var(--max-width));
+      }
+
+      .nav {
+        min-height: 56px;
+        padding: 0 12px;
+      }
+
+      main {
+        padding: 48px 0 48px;
+      }
+
+      .hero-title {
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        margin-bottom: 10px;
+      }
+
+      .hero-subtitle {
+        font-size: 0.95rem;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 24px;
+      }
+
+      .inventory-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .inventory-card {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .inventory-image {
+        width: 120px;
+        height: 120px;
+        min-width: 120px;
+        border-bottom: none;
+        border-right: 1px solid var(--line);
+      }
+
+      .inventory-content {
+        padding: 16px;
+      }
+
+      .social-card {
+        padding: 20px;
+      }
+
+      .testimonial-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav" aria-label="Primary navigation">
+
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span style="background-color: #000000 !important;"></span>
+        <span style="background-color: #000000 !important;"></span>
+        <span style="background-color: #000000 !important;"></span>
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="inventory.html">Social Circle</a>
+        <a href="services.html">Repair Services</a>
+        <a href="pricing.html">Pricing</a>
+      </nav>
+    </nav>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href="index.html">Home</a>
+      <a href="inventory.html">Social Circle</a>
+      <a href="services.html">Repair Services</a>
+      <a href="pricing.html">Pricing</a>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero-section">
+      <h1 class="hero-title">Social Circle.</h1>
+    </section>
+
+    <!-- Section 1: Connect With The Bench (Social Media Links) -->
+    <section class="social-section">
+      <h2 class="section-title">Connect With The Bench</h2>
+      <p style="color: var(--muted); margin-bottom: 32px; font-size: 1rem;">Follow our Social Circle for repair videos, special updates, Fun Skits and much more. We are aiming to build a classic console preservation community. .</p>
+      <div class="social-grid">
+        <a href="#" class="social-card" style="text-decoration: none;">
+          <div class="social-icon">▶️</div>
+          <div class="social-title">YouTube</div>
+          <div class="social-tagline">Watch full restoration builds and technical deep-dives into console repair methodologies.</div>
+        </a>
+
+        <a href="https://www.instagram.com/wright_consoles" class="social-card" style="text-decoration: none;" target="_blank" rel="noopener" >
+          <div class="social-icon">📸</div>
+          <div class="social-title">Instagram</div>
+          <div class="social-tagline">Daily micro-soldering clips, before-and-after transformations, and bench life snapshots.</div>
+        </a>
+
+        <a href="http://x.com/Wrightconsoles" class="social-card" style="text-decoration: none;" target="_blank" rel="noopener">
+          <div class="social-icon">𝕏</div>
+          <div class="social-title">X (Twitter)</div>
+          <div class="social-tagline">Real-time bench updates, technical insights, and community engagement with hardware enthusiasts.</div>
+        </a>
+
+        <a href="https://www.tiktok.com/@wrightconsoles" class="social-card" style="text-decoration: none;" target="_blank" rel="noopener">
+          <div class="social-icon">🎵</div>
+          <div class="social-title">TikTok</div>
+          <div class="social-tagline">Quick-hit repair satisfactions, soldering artistry, and console restoration time-lapses.</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 2: Client Testimonials And Link to Google Reviews -->
+    <section class="testimonials-section">
+      <h2 class="section-title">5.0 Out of 5 Stars on Google</h2>
+      <div class="testimonials-grid">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Brandon was nothing but amazing the console that I bought from him has been working perfect and I had a problem with my controller and he handled it without any question I will definitely be sending people to him for any future problems."</p>
+          <div class="testimonial-author">— Niko</div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Worked with Brandon before in the past. He is very knowledgeable, be through and honest.
+Last visit he fixed my SNES. I will use him again.
+Highly recommend."</p>
+          <div class="testimonial-author">— Rib Martinez</div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Great services and great value. I’ve had two consoles refurbished here and they work great. I would highly recommend this shop for your console needs."</p>
+          <div class="testimonial-author">— Carlos Moya Rubio</div>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">"Brandon fixed my overheating issue no problem, would definitely recommend thx haven’t played games like this in a long time."</p>
+          <div class="testimonial-author">— LIL Lincler</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Google Reviews Section -->
+<section style="margin-top: 40px; text-align: center;">
+  
+  <!-- Review Rating Header -->
+  <div style="margin-bottom: 16px;">
+    <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">Client Feedback</h2>
+    <div style="color: #ffd166; font-size: 1.2rem; font-weight: 700;">
+      ★★★★★ <span style="color: var(--text); font-size: 0.95rem; font-weight: 600;">(All Google Reviews)</span>
+    </div>
+  </div>
+
+  <!-- Direct Link to Google Reviews -->
+  <a href=https://www.google.com/search?sca_esv=53a40581b9e072dc&hl=en-US&sxsrf=APpeQnti8C7oi4C-6WWnpzvGbnff3dKkcQ:1791576636503&q=wright+consoles+reviews&uds=AJ5uw1-w2u46eVfwioS_WnUtawRgHOvHsy0hV4nwEVxF_z_PY_y3sysyVe7U5oXWVdS1dojdyu-IEHUvUxv_9DGBhpxAgN3OkQcmEb8SGw85tgFKZuxpnDhPpGA8W0w1ohdAfpsNPsKLVI2wtAtewJMxlsB7s09_1dNx9eNcUowXuWFcU3hCCJ5gVStkPawvRaKt5G5JX7NkgUvrLZ_4XZD-otli0rL2GCC2vIiXMPOFPjzhkgdXbLHjpHEOsWIfvBrbbkLec0vQEivJfryGPdUI8vWk20GBu9fNrvie-bOJEG-GtoYli7UZtE9Ws0zcns3VBwRSVlRFUj5lfUFqIsJNnSLC2rJadYDV4Hq4BYvd0i7V8f0xuykY6LnQyJj9MnVbCrwoarw_taALdxeSlt8Vf3gfgBhvG89XbCGroGTX-tD_AgfppCa3-OPfxQ4xaRlKr5yVDEiq&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_21h-COV5_BwIhgcSyWSvj9im9ULsmmmpqLMPk3yf4lKxujhI0oectDH_sUNUAHWhHHY6yzuVGG4X-J-f2Zyrjc3LUrM&sa=X&ved=2ahUKEwi764SI362XAxVlLEQIHZm5CKkQk8gLegQIHRAB&ictx=1&biw=360&bih=654&dpr=3 target="_blank" rel="noopener" style="display: inline-block; background: rgba(56, 199, 255, 0.12); border: 1px solid rgba(56, 199, 255, 0.4); color: var(--blue-bright); padding: 10px 20px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 0.9rem;">
+    ⭐ Read & Leave Reviews on Google
+  </a>
+
+</section>
+  </main>
+
+  <footer>
+    <div class="footer-inner page-shell">
+      <p>&copy; 2026 Wright Consoles. Precision service for vintage and modern console hardware.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get elements
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      
+      // Verify elements exist
+      if (!hamburgerBtn || !dropdownMenu) {
+        console.error('Hamburger button or dropdown menu not found');
+        return;
+      }
+      
+      const dropdownLinks = dropdownMenu.querySelectorAll('a');
+
+      // Toggle dropdown menu on hamburger click
+      hamburgerBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isActive = hamburgerBtn.classList.toggle('active');
+        dropdownMenu.classList.toggle('active');
+        hamburgerBtn.setAttribute('aria-expanded', isActive);
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(event) {
+        const isClickInsideHeader = hamburgerBtn.contains(event.target) || dropdownMenu.contains(event.target);
+        if (!isClickInsideHeader && !event.target.closest('a') && dropdownMenu.classList.contains('active')) {
+          hamburgerBtn.classList.remove('active');
+          dropdownMenu.classList.remove('active');
+          hamburgerBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
