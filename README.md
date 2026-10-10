@@ -1,1 +1,0 @@
-# wrightconsoles.github.io
